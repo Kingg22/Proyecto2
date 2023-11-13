@@ -11,7 +11,6 @@ class SpaClass {
     private int edad;
     private char sexo, tipoT;
     private LocalDate fechaInicio, fechaFin;
-    // variables locales de la clase
 
     public void AsignarDatos(String name, int old, char sex, char tipo, LocalDate fecha1, LocalDate fecha2) {
         nombre = name;
@@ -58,8 +57,8 @@ class SpaClass {
             descuento = (calcularCosto() * 0.25F);
         else if (edad >= 45 && edad <= 50 && (sexo == 'F'))
             descuento = (calcularCosto() * 0.15F);
-
-        else if (tipoT == 'B') {
+        // Descuento Especial por semana completa internado y es el tratamiento de menor costo
+        if (tipoT == 'B' && calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7) {
             descuento = descuento + (calcularCostoDia() * 0.50F);
 
         }

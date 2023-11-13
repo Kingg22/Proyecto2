@@ -67,12 +67,16 @@ class SpaClass {
     public String MostrarDescuentoEspecial() {
         String mensajeDD = "";
 
-        if (tipoT == 'A') {
-            mensajeDD = "Tiene derecho a tratamiento B o C (1 dia gratis!!)";
-        } else if (tipoT == 'C') {
-            mensajeDD = "Tiene derecho al tratamiento C (1 dia gratis!!)";
-        } else if (tipoT == 'B') {
-            mensajeDD = "Se le aplico un descuento de 50% en 1 día de su tratamiento";
+        if (calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7)
+        {
+            if (tipoT == 'A') {
+                mensajeDD = "Tiene derecho a tratamiento B o C (1 dia gratis!!)";
+            } else if (tipoT == 'C') {
+                mensajeDD = "Tiene derecho al tratamiento C (1 dia gratis!!)";
+            } else if (tipoT == 'B') {
+                mensajeDD = "Se le aplico un descuento de 50% en 1 día de su tratamiento";
+
+            }
         }
         return mensajeDD;
     }

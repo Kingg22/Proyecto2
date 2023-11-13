@@ -74,7 +74,7 @@ class SpaClass {
             } else if (tipoT == 'C') {
                 mensajeDD = "Tiene derecho al tratamiento C (1 dia gratis!!)";
             } else if (tipoT == 'B') {
-                mensajeDD = "Se le aplico un descuento de 50% en 1 día de su tratamiento";
+                mensajeDD = "Se le aplico un descuento de 50% en 1 dia de su tratamiento";
 
             }
         }
@@ -203,7 +203,7 @@ public class Spa {
 
         // variable de Validaciones y porcentajes (Contadores)
         int pacientes = 0, pacientes60 = 0, pacientes25 = 0, pacientesGratis = 0, totalA = 0, totalB = 0, totalC = 0;
-
+        
         do {// Menu principal de todo el programa
             int tipo = JOptionPane.showOptionDialog(null, "        BIENVENIDO\n      SPA ARMONIA", "SPA ARMONIA", 0,
                     JOptionPane.QUESTION_MESSAGE, iconD, opcion, "");
@@ -301,6 +301,10 @@ public class Spa {
                     }
                     if (objSpa.calcularDiasInternado() >= 5 && objSpa.calcularDiasInternado() <= 7)
                     {
+                        // mensaje de descuento especial si aplica
+                        JOptionPane.showMessageDialog(null,"Tiene un descuento adicional: \n"
+                                    + objSpa.MostrarDescuentoEspecial(),
+                            "Felicidades!", JOptionPane.INFORMATION_MESSAGE); 
                         if (objSpa.devolverTipoTratamiento() == 'A') {
                             pacientesGratis++;
                         } else if (objSpa.devolverTipoTratamiento() == 'C') {
@@ -322,13 +326,10 @@ public class Spa {
                                     + "\nFecha de entrada: " + (objSpa.devolverFecha1()).format(fechaFormato)
                                     + "     Fecha de salida: "
                                     + objSpa.devolverFecha2().format(fechaFormato) + mensajefinal
-
                                     + "\nCosto del tratamiento escogido:\n" + objSpa.calcularCosto() + '$'
                                     + "\nDescuentos:\n"
                                     + objSpa.calcularDescuentos() + '$' + "\nTotal a pagar:\n" + objSpa.calcularTotal()
-                                    + '$'
-                                    + "\n\nTiene un descuento adicional: \n"
-                                    + objSpa.MostrarDescuentoEspecial(),
+                                    + '$',
                             "Regrese pronto", JOptionPane.INFORMATION_MESSAGE, iconFinal);
 
                     // Datos inicializados nuevamente para la iteracion
@@ -354,7 +355,7 @@ public class Spa {
                         "                       SPA ARMONIA \n                 REGISTRO DE CLIENTES"
                                 + "\nTotal de pacientes: "
                                 + pacientes + "\nPersonas mayores a 60 a: " + pacientes60
-                                + "\nPersonas menores a 25 años: " + pacientes25
+                                + "\nPersonas menores a 25 a: " + pacientes25
                                 + "\nPorcentaje del tratamiento A: "
                                 + objDecimal.format(objPorcentaje.calcularPorcentajeA()) + "%"
                                 + "\nPorcentaje del tratamiento B: "

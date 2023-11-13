@@ -209,7 +209,7 @@ public class Spa {
 
         // variable de Validaciones y porcentajes (Contadores)
         int pacientes = 0, pacientes60 = 0, pacientes25 = 0, pacientesGratis = 0, totalA = 0, totalB = 0, totalC = 0;
-        JOptionPane.showMessageDialog(null,"Grupo: Rey Acosta 8-1024-1653 \nPatrick Villaroel E-8-206126" 
+        JOptionPane.showMessageDialog(null,"Grupo: \nRey Acosta 8-1024-1653 \nPatrick Villaroel E-8-206126" 
                             + "\nNathan Carrasco 8-1010-606 \nCarlos Cedeno 8-1019-137",
                             "Proyecto 2", JOptionPane.INFORMATION_MESSAGE); 
         do {// Menu principal de todo el programa
@@ -351,8 +351,9 @@ public class Spa {
                     JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num);
                 } catch (DateTimeException time) {
                     JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time);
+                } catch (StringIndexOutOfBoundsException e) {
+                    JOptionPane.showMessageDialog(null,"Error: indice fuera de rango " + e);
                 }
-
             } else {
 
                 // Asignacion de los datos a la segunda clase, porcentajes

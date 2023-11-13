@@ -50,8 +50,7 @@ class SpaClass {
     }
 
     public float calcularDescuentos() {
-        float descuento;
-        descuento = 0.00F; // inicializar
+        float descuento = 0.00F; // inicializar
         // Descuento por edad
         if (edad > 60)
             descuento = (calcularCosto() * 0.25F);
@@ -74,9 +73,7 @@ class SpaClass {
             mensajeDD = "Tiene derecho al tratamiento C (1 dia gratis!!)";
         } else if (tipoT == 'B') {
             mensajeDD = "Se le aplico un descuento de 50% en 1 día de su tratamiento";
-
         }
-
         return mensajeDD;
     }
 
@@ -172,7 +169,7 @@ public class Spa {
         String opcion[] = { "Ver Servicios", "Registrarse", "Salir" };
         String opcion2[] = { "A", "B", "C", "Regresar" };
         String opcion3[] = { "Regresar" };
-        // Variables para el controlo de opciones
+        // Variables para el control de opciones
         int servicio = 0, menu2 = 0, cont1 = 0;
         // Iconos de cada menu en el programa
         ImageIcon iconA = new ImageIcon("tratamientoA.jpg");
@@ -189,8 +186,8 @@ public class Spa {
         String nombre, tratamiento, fecha, fecha2, mensajefinal = "";
         int edad = 0;
         char sexo = 'A', tratamientoFin;
-        String opcionTrat[] = { "A", "B", "C" };// Opcion de tratamiento
-        // Uso de fecha del sistema
+        String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
+        // Uso de fecha del sistema y fecha especifica
         LocalDate fechaInicio = LocalDate.now(), fechaFin = LocalDate.of(1, 1, 1);
         // Cracion del contructor del formato de fecha "dd/MM/yyyy"
         DateTimeFormatter fechaFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -200,7 +197,7 @@ public class Spa {
         DecimalFormat objDecimal = new DecimalFormat("0.00"); // Constructor para el formato de numeros
         Porcentaje objPorcentaje = new Porcentaje();// Clase Porcentaje
 
-        // Validaciones y porcentajes (Contadores)
+        // variable de Validaciones y porcentajes (Contadores)
         int pacientes = 0, pacientes60 = 0, pacientes25 = 0, pacientesGratis = 0, totalA = 0, totalB = 0, totalC = 0;
 
         do {// Menu principal de todo el programa
@@ -228,9 +225,8 @@ public class Spa {
                 } while (menu2 != 3); // iteracion del menu de servicios
 
             } else if (tipo == 1) {
-
                 // Registro de usuario
-                try { // Bloque de controlo de excepciones try
+                try { // Bloque de control de excepciones try
                       // Entrada del nombre del paciente
                     nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -243,7 +239,8 @@ public class Spa {
                                 .showInputDialog(null, "Sexo: M/F", "SPA ARMONIA", JOptionPane.INFORMATION_MESSAGE)
                                 .charAt(0));
                         sexo = Character.toUpperCase(sexo);
-                    } // Eleccion del tratamiento por el paciente
+                    } 
+                    // Eleccion del tratamiento por el paciente
                     tratamiento = (String) JOptionPane.showInputDialog(null,
                             "¿Tramiento a elegir?",
                             "Spa Armonia", JOptionPane.QUESTION_MESSAGE, iconE, opcionTrat,
@@ -281,7 +278,7 @@ public class Spa {
                     // Asignacion de los datos entrada 1
                     objSpa.AsignarDatos(nombre, edad, sexo, tratamientoFin, fechaInicio, fechaFin);
 
-                    // Contadores de paciente y porcentajes
+                    // Contadores de paciente, porcentajes y pacientes con descuento especial
                     pacientes++;
                     if (objSpa.devolverEdad() > 60)
                         pacientes60++;
@@ -297,6 +294,17 @@ public class Spa {
                         case 'C':
                             totalC++;
                             break;
+                    }
+                    if (objSpa.calcularDiasInternado() >= 5 && objSpa.calcularDiasInternado() <= 7)
+                    {
+                        if (objSpa.devolverTipoTratamiento() == 'A') {
+                            pacientesGratis++;
+                        } else if (objSpa.devolverTipoTratamiento() == 'C') {
+                            pacientesGratis++;
+                        } else if (objSpa.devolverTipoTratamiento() == 'B') {
+                            pacientesGratis++;
+
+                        }
                     }
 
                     // Impresion de factura con todos los datos requeridos

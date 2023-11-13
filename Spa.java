@@ -134,18 +134,24 @@ class Porcentaje {
     public float calcularPorcentajeA() {
         float porcentajeA;
         porcentajeA = (float) tipoA / pacientesT * 100;
+        if (pacientesT == 0)
+        porcentajeA = 0.00F;
         return porcentajeA;
     }
 
     public float calcularPorcentajeB() {
         float porcentajeB;
         porcentajeB = (float) tipoB / pacientesT * 100;
+        if (pacientesT == 0)
+        porcentajeB = 0.00F;
         return porcentajeB;
     }
 
     public float calcularPorcentajeC() {
         float porcentajeC;
         porcentajeC = (float) tipoC / pacientesT * 100;
+        if (pacientesT == 0)
+        porcentajeC = 0.00F;
         return porcentajeC;
     }
 

@@ -193,7 +193,7 @@ public class Spa {
         String tratamientoB = "SERVICIO B (Aromaterapia):\nAprovecha de aceites esenciales de las plantas para mejorar el\nequilibrio de la mente, el cuerpo y el espiritu.";
         String tratamientoC = "SERVICIO C (Lodoterapia):\nLimpia los poros, exfolia la piel muerta, y disfruta de una piel\nsuave y tersa, simplemente un tratamiento desintoxicantes,\nrevitalizantes, anti-fatiga y seboreguladores.";
         // Datos de entraada
-        String nombre = "a", tratamiento, fecha, fecha2, mensajefinal = "";
+        String nombre = "", tratamiento, fecha, fecha2, mensajefinal = "";
         int edad = 0;
         char sexo = 'A', tratamientoFin;
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
@@ -240,10 +240,17 @@ public class Spa {
                 // Registro de usuario
                 try { // Bloque de control de excepciones try
                       // Entrada del nombre del paciente
-                    while (nombre != null) {
-                      nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    do {
+                        nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
+                                JOptionPane.INFORMATION_MESSAGE);
+                            if (nombre == null) {
+                                // El usuario presionó Cancelar
+                                System.exit(0);
+                            } else if (nombre.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                    } while (nombre == null || nombre.isEmpty());
                     while (edad < 18) { // Validacion y entrada de la edad del paciente
                         edad = Integer.parseInt(JOptionPane.showInputDialog(null,
                                 "Ingrese su edad", "SPA ARMONIA", JOptionPane.INFORMATION_MESSAGE));
@@ -343,6 +350,7 @@ public class Spa {
                             "Regrese pronto", JOptionPane.INFORMATION_MESSAGE, iconFinal);
 
                     // Datos inicializados nuevamente para la iteracion
+                    nombre = "";
                     sexo = 'H';
                     edad = 0;
                     fechaFin = LocalDate.of(1, 1, 1);
@@ -350,11 +358,11 @@ public class Spa {
 
                 // catch de formateo de numero y formato de fecha
                 } catch (NumberFormatException num) {
-                    JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num);
+                    JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num, "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (DateTimeException time) {
-                    JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time);
+                    JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time, "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (StringIndexOutOfBoundsException e) {
-                    JOptionPane.showMessageDialog(null,"Error: indice fuera de rango " + e);
+                    JOptionPane.showMessageDialog(null,"Error: indice fuera de rango " + e, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
 

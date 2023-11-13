@@ -317,7 +317,7 @@ public class Spa {
                                     + "\nCliente: " + objSpa.devolverNombre()
                                     + "\nEdad: "
                                     + objSpa.devolverEdad()
-                                    + "\nSexo: " + objSpa.devolverSexo() + "\nDías de estancia: "
+                                    + "\nSexo: " + objSpa.devolverSexo() + "\nDias de estancia: "
                                     + objSpa.calcularDiasInternado()
                                     + "\nFecha de entrada: " + (objSpa.devolverFecha1()).format(fechaFormato)
                                     + "     Fecha de salida: "
@@ -337,7 +337,7 @@ public class Spa {
                     fechaFin = LocalDate.of(1, 1, 1);
                     fechaInicio = LocalDate.now();
 
-                    // catch de formato de numero y formato de fecha
+                // catch de formateo de numero y formato de fecha
                 } catch (NumberFormatException num) {
                     JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num);
                 } catch (DateTimeException time) {
@@ -349,11 +349,11 @@ public class Spa {
                 // Asignacion de los datos a la segunda clase, porcentajes
                 objPorcentaje.asignarDatos(totalA, totalB, totalC, pacientes);
 
-                // Impresion de reghistro final
+                // Impresion de resumen final
                 JOptionPane.showMessageDialog(null,
                         "                       SPA ARMONIA \n                 REGISTRO DE CLIENTES"
                                 + "\nTotal de pacientes: "
-                                + pacientes + "\nPersonas mayores a 60 años: " + pacientes60
+                                + pacientes + "\nPersonas mayores a 60 a: " + pacientes60
                                 + "\nPersonas menores a 25 años: " + pacientes25
                                 + "\nPorcentaje del tratamiento A: "
                                 + objDecimal.format(objPorcentaje.calcularPorcentajeA()) + "%"

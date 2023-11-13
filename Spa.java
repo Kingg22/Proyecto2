@@ -193,7 +193,7 @@ public class Spa {
         String tratamientoB = "SERVICIO B (Aromaterapia):\nAprovecha de aceites esenciales de las plantas para mejorar el\nequilibrio de la mente, el cuerpo y el espiritu.";
         String tratamientoC = "SERVICIO C (Lodoterapia):\nLimpia los poros, exfolia la piel muerta, y disfruta de una piel\nsuave y tersa, simplemente un tratamiento desintoxicantes,\nrevitalizantes, anti-fatiga y seboreguladores.";
         // Datos de entraada
-        String nombre, tratamiento, fecha, fecha2, mensajefinal = "";
+        String nombre = "a", tratamiento, fecha, fecha2, mensajefinal = "";
         int edad = 0;
         char sexo = 'A', tratamientoFin;
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
@@ -240,8 +240,10 @@ public class Spa {
                 // Registro de usuario
                 try { // Bloque de control de excepciones try
                       // Entrada del nombre del paciente
-                    nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
+                    while (nombre != null) {
+                      nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
                             JOptionPane.INFORMATION_MESSAGE);
+                    }
                     while (edad < 18) { // Validacion y entrada de la edad del paciente
                         edad = Integer.parseInt(JOptionPane.showInputDialog(null,
                                 "Ingrese su edad", "SPA ARMONIA", JOptionPane.INFORMATION_MESSAGE));

@@ -203,7 +203,9 @@ public class Spa {
 
         // variable de Validaciones y porcentajes (Contadores)
         int pacientes = 0, pacientes60 = 0, pacientes25 = 0, pacientesGratis = 0, totalA = 0, totalB = 0, totalC = 0;
-        
+        JOptionPane.showMessageDialog(null,"Grupo: Rey Acosta 8-1024-1653 \nPatrick Villaroel E-8-206126" 
+                            + "\nNathan Carrasco 8-1010-606 \nCarlos Cedeno 8-1019-137",
+                            "Proyecto 2", JOptionPane.INFORMATION_MESSAGE); 
         do {// Menu principal de todo el programa
             int tipo = JOptionPane.showOptionDialog(null, "        BIENVENIDO\n      SPA ARMONIA", "SPA ARMONIA", 0,
                     JOptionPane.QUESTION_MESSAGE, iconD, opcion, "");

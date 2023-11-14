@@ -242,7 +242,7 @@ public class Spa {
                       // Entrada del nombre del paciente
                     do {
                         nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
-                                JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.QUESTION_MESSAGE);
                             if (nombre == null) {
                                 // El usuario presionó Cancelar
                                 System.exit(0);
@@ -253,7 +253,7 @@ public class Spa {
                     } while (nombre == null || nombre.isEmpty());
                     while (edad == null || edad < 18) {
                         inputEdad = JOptionPane.showInputDialog(null, "Ingrese su edad: ", "SPA ARMONIA",
-                                JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.QUESTION_MESSAGE);
                     
                         // Verificar si el usuario ha cancelado
                         if (inputEdad == null) {
@@ -269,7 +269,7 @@ public class Spa {
                     }
                     while (sexo != 'M' && sexo != 'F') { // Validacion y entrada del sexo del paciente
                         inputSexo = JOptionPane.showInputDialog(null, "Sexo: M/F", "SPA ARMONIA",
-                        JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.QUESTION_MESSAGE);
             
                         // Verificar si el usuario ha cancelado
                         if (inputSexo == null) {
@@ -306,7 +306,7 @@ public class Spa {
                     // Fecha de entrada
                     do {
                         inputFechaInicio = JOptionPane.showInputDialog(null,
-                                "Introduzca la fecha de entrada (dd/MM/yyyy) :",
+                                "Introduzca la fecha de entrada (dd/MM/yyyy) :",  
                                 fechaInicio != null ? fechaInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
 
                         // Verificar si el usuario ha cancelado

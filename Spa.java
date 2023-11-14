@@ -193,12 +193,12 @@ public class Spa {
         String tratamientoB = "SERVICIO B (Aromaterapia):\nAprovecha de aceites esenciales de las plantas para mejorar el\nequilibrio de la mente, el cuerpo y el espiritu.";
         String tratamientoC = "SERVICIO C (Lodoterapia):\nLimpia los poros, exfolia la piel muerta, y disfruta de una piel\nsuave y tersa, simplemente un tratamiento desintoxicantes,\nrevitalizantes, anti-fatiga y seboreguladores.";
         // Datos de entraada
-        String nombre = "", tratamiento, fecha, fecha2, mensajefinal = "";
-        int edad = 0;
+        String nombre = "", tratamiento, mensajefinal = "", inputSexo, inputEdad, inputFechaInicio, inputFechaFin;
+        Integer edad = null;
         char sexo = 'A', tratamientoFin;
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
         // Uso de fecha del sistema y fecha especifica
-        LocalDate fechaInicio = LocalDate.now(), fechaFin = LocalDate.of(1, 1, 1);
+        LocalDate fechaInicio = null, fechaFin = null;
         // Cracion del contructor del formato de fecha "dd/MM/yyyy"
         DateTimeFormatter fechaFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -251,15 +251,38 @@ public class Spa {
                                             "Error", JOptionPane.ERROR_MESSAGE);
                             }
                     } while (nombre == null || nombre.isEmpty());
-                    while (edad < 18) { // Validacion y entrada de la edad del paciente
-                        edad = Integer.parseInt(JOptionPane.showInputDialog(null,
-                                "Ingrese su edad", "SPA ARMONIA", JOptionPane.INFORMATION_MESSAGE));
+                    while (edad == null || edad < 18) {
+                        inputEdad = JOptionPane.showInputDialog(null, "Ingrese su edad: ", "SPA ARMONIA",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    
+                        // Verificar si el usuario ha cancelado
+                        if (inputEdad == null) {
+                            System.exit(0);  // Salir del programa si el usuario cancela
+                        }
+                        edad = Integer.parseInt(inputEdad);
+
+                        // Verificar si la edad es menor de 18
+                        if (edad < 18) {
+                            JOptionPane.showMessageDialog(null, "La edad debe ser igual o mayor a 18.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                     while (sexo != 'M' && sexo != 'F') { // Validacion y entrada del sexo del paciente
-                        sexo = (JOptionPane
-                                .showInputDialog(null, "Sexo: M/F", "SPA ARMONIA", JOptionPane.INFORMATION_MESSAGE)
-                                .charAt(0));
-                        sexo = Character.toUpperCase(sexo);
+                        inputSexo = JOptionPane.showInputDialog(null, "Sexo: M/F", "SPA ARMONIA",
+                        JOptionPane.INFORMATION_MESSAGE);
+            
+                        // Verificar si el usuario ha cancelado
+                        if (inputSexo == null) {
+                            System.exit(0);
+                        }
+                    
+                        // Verificar si la entrada no está vacía y es un carácter
+                        if (!inputSexo.isEmpty()) {
+                            sexo = Character.toUpperCase(inputSexo.charAt(0));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Sexo no válido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     } 
                     // Eleccion del tratamiento por el paciente
                     tratamiento = (String) JOptionPane.showInputDialog(null,
@@ -281,20 +304,30 @@ public class Spa {
                     }
 
                     // Fecha de entrada
-                    fecha = JOptionPane.showInputDialog(null,
-                            "Introduzca la fecha de entrada (dd/MM/yyyy): ",
-                            fechaInicio.format(fechaFormato)); // Entrada con formato (dd/MM/yyyy)
-                    System.out.println(fechaInicio); // Borrar despues de verificar
-                    fechaInicio = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy")); // Formateo
-                    System.out.println(fechaFin); // Borrar despues de verificar
+                    do {
+                        inputFechaInicio = JOptionPane.showInputDialog(null,
+                                "Introduzca la fecha de entrada (dd/MM/yyyy) :",
+                                fechaInicio != null ? fechaInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
 
-                    // Fecha de salida
-                    while (ChronoUnit.DAYS.between(fechaInicio, fechaFin) <= 0) {
-                        fecha2 = JOptionPane.showInputDialog(null,
-                                "Introduzca la fecha de salida (dd/MM/yyyy): ", // Entrada con formato (dd/MM/yyyy)
-                                fechaInicio.format(fechaFormato));
-                        fechaFin = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd/MM/yyyy")); // Formateo
-                    }
+                        // Verificar si el usuario ha cancelado
+                        if (inputFechaInicio == null) {
+                            System.exit(0); 
+                        }
+                        fechaInicio = LocalDate.parse(inputFechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    } while (fechaInicio == null);
+
+                    // Entrada de la fecha de salida
+                    do {
+                        inputFechaFin = JOptionPane.showInputDialog(null,
+                                "Introduzca la fecha de salida (dd/MM/yyyy): ",
+                                fechaFin != null ? fechaFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
+
+                        // Verificar si el usuario ha cancelado
+                        if (inputFechaFin == null) {
+                            System.exit(0);
+                        }
+                        fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    } while (fechaFin == null);
 
                     // Asignacion de los datos entrada 1
                     objSpa.AsignarDatos(nombre, edad, sexo, tratamientoFin, fechaInicio, fechaFin);
@@ -351,10 +384,10 @@ public class Spa {
 
                     // Datos inicializados nuevamente para la iteracion
                     nombre = "";
-                    sexo = 'H';
-                    edad = 0;
-                    fechaFin = LocalDate.of(1, 1, 1);
-                    fechaInicio = LocalDate.now();
+                    sexo = 'A';
+                    edad = null;
+                    fechaFin = null;
+                    fechaInicio = null;
 
                 // catch de formateo de numero y formato de fecha
                 } catch (NumberFormatException num) {
@@ -382,7 +415,7 @@ public class Spa {
                                 + "\nPorcentaje del  tratamiento C: "
                                 + objDecimal.format(objPorcentaje.calcularPorcentajeC()) + "%"
                                 + "\nTotal de paciente con tratamietos gratis: "
-                                + pacientesGratis);
+                                + pacientesGratis, "Resumen", 1);
                 cont1 = 1;// Contador para que el programa salga y termine ejecucucion
             }
         } while (cont1 == 0); // Iteracion del programa y mensaje principal "Menu"

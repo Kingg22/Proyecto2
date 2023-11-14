@@ -195,7 +195,7 @@ public class Spa {
         // Datos de entraada
         String nombre = "", tratamiento, mensajefinal = "", inputSexo, inputEdad, inputFechaInicio = "", inputFechaFin;
         Integer edad = 0, respuesta;
-        char sexo = 'A', tratamientoFin;
+        char sexo = 'A', tratamientoFin = 'l';
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
         // Uso de fecha del sistema y fecha especifica
         LocalDate fechaInicio = null, fechaFin = null;
@@ -245,7 +245,19 @@ public class Spa {
                                 JOptionPane.QUESTION_MESSAGE);
                         if (nombre == null) {
                             // El usuario presionó Cancelar
-                            System.exit(0);
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0: // El usuario presionó Cancelar
+                                    System.exit(0);
+                                    break;
+
+                                case 1:
+                                    sexo = 'l';
+                                    break;
+                            }
                         } else if (nombre.isEmpty()) {
                             JOptionPane.showMessageDialog(null,
                                     "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
@@ -270,7 +282,7 @@ public class Spa {
                                     break;
 
                                 case 1:
-                                    sexo = 'l';
+                                    edad = 0;
                                     break;
                             }
 
@@ -320,24 +332,42 @@ public class Spa {
                         }
                     }
                     // Eleccion del tratamiento por el paciente
-                    tratamiento = (String) JOptionPane.showInputDialog(null,
-                            "¿Tramiento a elegir?",
-                            "Spa Armonia", JOptionPane.QUESTION_MESSAGE, iconE, opcionTrat,
-                            opcionTrat[0]);
-                    tratamientoFin = tratamiento.charAt(0);
+                    while (tratamientoFin != 'A' && tratamientoFin != 'B' && tratamientoFin != 'C') {
 
-                    // Mensaje y icono final (Factura)
-                    if (tratamientoFin == 'A') {
-                        mensajefinal = "\n" + tratamientoA;
-                        iconFinal = iconA;
-                    } else if (tratamientoFin == 'C') {
-                        mensajefinal = "\n" + tratamientoC;
-                        iconFinal = iconC;
-                    } else if (tratamientoFin == 'B') {
-                        mensajefinal = "\n" + tratamientoB;
-                        iconFinal = iconB;
+                        tratamiento = (String) JOptionPane.showInputDialog(null,
+                                "¿Tramiento a elegir?",
+                                "Spa Armonia", JOptionPane.QUESTION_MESSAGE, iconE, opcionTrat,
+                                opcionTrat[0]);
+                        if (tratamiento == null) {
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0:
+                                    System.exit(0);
+                                    break;
+
+                                case 1:
+                                    fechaInicio = null;
+                                    break;
+                            }
+
+                        } else {
+                            tratamientoFin = tratamiento.charAt(0);
+                            // Mensaje y icono final (Factura)
+                            if (tratamientoFin == 'A') {
+                                mensajefinal = "\n" + tratamientoA;
+                                iconFinal = iconA;
+                            } else if (tratamientoFin == 'C') {
+                                mensajefinal = "\n" + tratamientoC;
+                                iconFinal = iconC;
+                            } else if (tratamientoFin == 'B') {
+                                mensajefinal = "\n" + tratamientoB;
+                                iconFinal = iconB;
+                            }
+                        }
                     }
-
                     // Fecha de entrada
                     do {
                         inputFechaInicio = JOptionPane.showInputDialog(null,
@@ -347,11 +377,20 @@ public class Spa {
                         // Verificar si el usuario ha cancelado
 
                         if (inputFechaInicio == null) {
-                            fechaInicio = null;
-                            // System.exit(0);
-                        }
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0:
+                                    System.exit(0);
+                                    break;
 
-                        else if (!inputFechaInicio.isEmpty()) {
+                                case 1:
+                                    fechaInicio = null;
+                                    break;
+                            }
+                        } else if (!inputFechaInicio.isEmpty()) {
                             fechaInicio = LocalDate.parse(inputFechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                         } else {
                             JOptionPane.showMessageDialog(null,
@@ -370,7 +409,19 @@ public class Spa {
 
                         // Verificar si el usuario ha cancelado
                         if (inputFechaFin == null) {
-                            fechaFin = null;
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0:
+                                    System.exit(0);
+                                    break;
+
+                                case 1:
+                                    fechaFin = null;
+                                    break;
+                            }
                         }
                         if (!inputFechaFin.isEmpty()) {
                             fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

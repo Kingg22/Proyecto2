@@ -194,7 +194,7 @@ public class Spa {
         String tratamientoC = "SERVICIO C (Lodoterapia):\nLimpia los poros, exfolia la piel muerta, y disfruta de una piel\nsuave y tersa, simplemente un tratamiento desintoxicantes,\nrevitalizantes, anti-fatiga y seboreguladores.";
         // Datos de entraada
         String nombre = "", tratamiento, mensajefinal = "", inputSexo, inputEdad, inputFechaInicio = "", inputFechaFin;
-        Integer edad = 0;
+        Integer edad = 0, respuesta;
         char sexo = 'A', tratamientoFin;
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
         // Uso de fecha del sistema y fecha especifica
@@ -258,14 +258,27 @@ public class Spa {
                                 JOptionPane.QUESTION_MESSAGE);
 
                         // Verificar si el usuario ha cancelado
-                        if (inputEdad == null) {
-                            System.exit(0); // Salir del programa si el usuario cancela
+                        if (inputEdad == null) { // Salir del programa si el usuario cancela
+
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0:
+                                    System.exit(0);
+                                    break;
+
+                                case 1:
+                                    sexo = 'l';
+                                    break;
+                            }
+
                         } else if (inputEdad.isEmpty()) {
                             JOptionPane.showMessageDialog(null,
                                     "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        if (!inputEdad.isEmpty()) {
+                        } else if (!inputEdad.isEmpty()) {
                             edad = Integer.parseInt(inputEdad);
                             // Verificar si la edad es menor de 18
                             if (edad < 18) {
@@ -281,16 +294,29 @@ public class Spa {
 
                         // Verificar si el usuario ha cancelado
                         if (inputSexo == null) {
-                            System.exit(0);
-                        }
 
-                        // Verificar si la entrada no está vacía y es un carácter
-                        if (!inputSexo.isEmpty()) {
-                            sexo = Character.toUpperCase(inputSexo.charAt(0));
+                            respuesta = JOptionPane.showConfirmDialog(null,
+                                    "¿Esta seguro que quiere salir del programa?: ",
+                                    "SPA ARMONIA", JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE, null);
+                            switch (respuesta) {
+                                case 0:
+                                    System.exit(0);
+                                    break;
+
+                                case 1:
+                                    sexo = 'l';
+                                    break;
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(null,
-                                    "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
+                            // Verificar si la entrada no está vacía y es un carácter
+                            if (!inputSexo.isEmpty()) {
+                                sexo = Character.toUpperCase(inputSexo.charAt(0));
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
                     }
                     // Eleccion del tratamiento por el paciente
@@ -340,11 +366,11 @@ public class Spa {
                     do {
                         inputFechaFin = JOptionPane.showInputDialog(null,
                                 "Introduzca la fecha de salida (dd/MM/yyyy): ",
-                                fechaFin != null ? fechaFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
+                                (LocalDate.now()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
                         // Verificar si el usuario ha cancelado
                         if (inputFechaFin == null) {
-                            System.exit(0);
+                            fechaFin = null;
                         }
                         if (!inputFechaFin.isEmpty()) {
                             fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

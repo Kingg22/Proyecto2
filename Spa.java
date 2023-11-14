@@ -56,7 +56,8 @@ class SpaClass {
             descuento = (calcularCosto() * 0.25F);
         else if (edad >= 45 && edad <= 50 && (sexo == 'F'))
             descuento = (calcularCosto() * 0.15F);
-        // Descuento Especial por semana completa internado y es el tratamiento de menor costo
+        // Descuento Especial por semana completa internado y es el tratamiento de menor
+        // costo
         if (tipoT == 'B' && calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7) {
             descuento = descuento + (calcularCostoDia() * 0.50F);
 
@@ -67,8 +68,7 @@ class SpaClass {
     public String MostrarDescuentoEspecial() {
         String mensajeDD = "";
 
-        if (calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7)
-        {
+        if (calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7) {
             if (tipoT == 'A') {
                 mensajeDD = "Tiene derecho a tratamiento B o C (1 dia gratis!!)";
             } else if (tipoT == 'C') {
@@ -135,7 +135,7 @@ class Porcentaje {
         float porcentajeA;
         porcentajeA = (float) tipoA / pacientesT * 100;
         if (pacientesT == 0)
-        porcentajeA = 0.00F;
+            porcentajeA = 0.00F;
         return porcentajeA;
     }
 
@@ -143,7 +143,7 @@ class Porcentaje {
         float porcentajeB;
         porcentajeB = (float) tipoB / pacientesT * 100;
         if (pacientesT == 0)
-        porcentajeB = 0.00F;
+            porcentajeB = 0.00F;
         return porcentajeB;
     }
 
@@ -151,7 +151,7 @@ class Porcentaje {
         float porcentajeC;
         porcentajeC = (float) tipoC / pacientesT * 100;
         if (pacientesT == 0)
-        porcentajeC = 0.00F;
+            porcentajeC = 0.00F;
         return porcentajeC;
     }
 
@@ -193,8 +193,8 @@ public class Spa {
         String tratamientoB = "SERVICIO B (Aromaterapia):\nAprovecha de aceites esenciales de las plantas para mejorar el\nequilibrio de la mente, el cuerpo y el espiritu.";
         String tratamientoC = "SERVICIO C (Lodoterapia):\nLimpia los poros, exfolia la piel muerta, y disfruta de una piel\nsuave y tersa, simplemente un tratamiento desintoxicantes,\nrevitalizantes, anti-fatiga y seboreguladores.";
         // Datos de entraada
-        String nombre = "", tratamiento, mensajefinal = "", inputSexo, inputEdad, inputFechaInicio, inputFechaFin;
-        Integer edad = null;
+        String nombre = "", tratamiento, mensajefinal = "", inputSexo, inputEdad, inputFechaInicio = "", inputFechaFin;
+        Integer edad = 0;
         char sexo = 'A', tratamientoFin;
         String opcionTrat[] = { "A", "B", "C" }; // Opciones de tratamiento
         // Uso de fecha del sistema y fecha especifica
@@ -209,9 +209,9 @@ public class Spa {
 
         // variable de Validaciones y porcentajes (Contadores)
         int pacientes = 0, pacientes60 = 0, pacientes25 = 0, pacientesGratis = 0, totalA = 0, totalB = 0, totalC = 0;
-        JOptionPane.showMessageDialog(null,"Grupo: \nRey Acosta 8-1024-1653 \nPatrick Villaroel E-8-206126" 
-                            + "\nNathan Carrasco 8-1010-606 \nCarlos Cedeno 8-1019-137",
-                            "Proyecto 2", JOptionPane.INFORMATION_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "Grupo: \nRey Acosta 8-1024-1653 \nPatrick Villaroel E-8-206126"
+                + "\nNathan Carrasco 8-1010-606 \nCarlos Cedeno 8-1019-137",
+                "Proyecto 2", JOptionPane.INFORMATION_MESSAGE);
         do {// Menu principal de todo el programa
             int tipo = JOptionPane.showOptionDialog(null, "        BIENVENIDO\n      SPA ARMONIA", "SPA ARMONIA", 0,
                     JOptionPane.QUESTION_MESSAGE, iconD, opcion, "");
@@ -243,47 +243,56 @@ public class Spa {
                     do {
                         nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
                                 JOptionPane.QUESTION_MESSAGE);
-                            if (nombre == null) {
-                                // El usuario presionó Cancelar
-                                System.exit(0);
-                            } else if (nombre.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
-                            }
+                        if (nombre == null) {
+                            // El usuario presionó Cancelar
+                            System.exit(0);
+                        } else if (nombre.isEmpty()) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     } while (nombre == null || nombre.isEmpty());
+
                     while (edad == null || edad < 18) {
                         inputEdad = JOptionPane.showInputDialog(null, "Ingrese su edad: ", "SPA ARMONIA",
                                 JOptionPane.QUESTION_MESSAGE);
-                    
+
                         // Verificar si el usuario ha cancelado
                         if (inputEdad == null) {
-                            System.exit(0);  // Salir del programa si el usuario cancela
-                        }
-                        edad = Integer.parseInt(inputEdad);
-
-                        // Verificar si la edad es menor de 18
-                        if (edad < 18) {
-                            JOptionPane.showMessageDialog(null, "La edad debe ser igual o mayor a 18.",
+                            System.exit(0); // Salir del programa si el usuario cancela
+                        } else if (inputEdad.isEmpty()) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         }
+                        if (!inputEdad.isEmpty()) {
+                            edad = Integer.parseInt(inputEdad);
+                            // Verificar si la edad es menor de 18
+                            if (edad < 18) {
+                                JOptionPane.showMessageDialog(null, "La edad debe ser igual o mayor a 18.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+
                     }
                     while (sexo != 'M' && sexo != 'F') { // Validacion y entrada del sexo del paciente
                         inputSexo = JOptionPane.showInputDialog(null, "Sexo: M/F", "SPA ARMONIA",
-                        JOptionPane.QUESTION_MESSAGE);
-            
+                                JOptionPane.QUESTION_MESSAGE);
+
                         // Verificar si el usuario ha cancelado
                         if (inputSexo == null) {
                             System.exit(0);
                         }
-                    
+
                         // Verificar si la entrada no está vacía y es un carácter
                         if (!inputSexo.isEmpty()) {
                             sexo = Character.toUpperCase(inputSexo.charAt(0));
                         } else {
-                            JOptionPane.showMessageDialog(null, "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
+                            JOptionPane.showMessageDialog(null,
+                                    "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    } 
+                    }
                     // Eleccion del tratamiento por el paciente
                     tratamiento = (String) JOptionPane.showInputDialog(null,
                             "¿Tramiento a elegir?",
@@ -306,14 +315,25 @@ public class Spa {
                     // Fecha de entrada
                     do {
                         inputFechaInicio = JOptionPane.showInputDialog(null,
-                                "Introduzca la fecha de entrada (dd/MM/yyyy) :",  
-                                fechaInicio != null ? fechaInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
+                                "Introduzca la fecha de entrada (dd/MM/yyyy) :",
+                                (LocalDate.now()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
                         // Verificar si el usuario ha cancelado
+
                         if (inputFechaInicio == null) {
-                            System.exit(0); 
+                            fechaInicio = null;
+                            // System.exit(0);
                         }
-                        fechaInicio = LocalDate.parse(inputFechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                        else if (!inputFechaInicio.isEmpty()) {
+                            fechaInicio = LocalDate.parse(inputFechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                            System.out.println(fechaInicio);
+                        }
+
                     } while (fechaInicio == null);
 
                     // Entrada de la fecha de salida
@@ -326,8 +346,16 @@ public class Spa {
                         if (inputFechaFin == null) {
                             System.exit(0);
                         }
-                        fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    } while (fechaFin == null);
+                        if (!inputFechaFin.isEmpty()) {
+                            fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    } while (fechaFin == null || ChronoUnit.DAYS.between(fechaInicio, fechaFin) <= 0);
 
                     // Asignacion de los datos entrada 1
                     objSpa.AsignarDatos(nombre, edad, sexo, tratamientoFin, fechaInicio, fechaFin);
@@ -349,12 +377,11 @@ public class Spa {
                             totalC++;
                             break;
                     }
-                    if (objSpa.calcularDiasInternado() >= 5 && objSpa.calcularDiasInternado() <= 7)
-                    {
+                    if (objSpa.calcularDiasInternado() >= 5 && objSpa.calcularDiasInternado() <= 7) {
                         // mensaje de descuento especial si aplica
-                        JOptionPane.showMessageDialog(null,"Tiene un descuento adicional: \n"
-                                    + objSpa.MostrarDescuentoEspecial(),
-                            "Felicidades!", JOptionPane.INFORMATION_MESSAGE); 
+                        JOptionPane.showMessageDialog(null, "Tiene un descuento adicional: \n"
+                                + objSpa.MostrarDescuentoEspecial(),
+                                "Felicidades!", JOptionPane.INFORMATION_MESSAGE);
                         if (objSpa.devolverTipoTratamiento() == 'A') {
                             pacientesGratis++;
                         } else if (objSpa.devolverTipoTratamiento() == 'C') {
@@ -389,13 +416,16 @@ public class Spa {
                     fechaFin = null;
                     fechaInicio = null;
 
-                // catch de formateo de numero y formato de fecha
+                    // catch de formateo de numero y formato de fecha
                 } catch (NumberFormatException num) {
-                    JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num, "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num, "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 } catch (DateTimeException time) {
-                    JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time, "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time,
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (StringIndexOutOfBoundsException e) {
-                    JOptionPane.showMessageDialog(null,"Error: indice fuera de rango " + e, "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error: indice fuera de rango " + e, "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             } else {
 
@@ -415,7 +445,8 @@ public class Spa {
                                 + "\nPorcentaje del  tratamiento C: "
                                 + objDecimal.format(objPorcentaje.calcularPorcentajeC()) + "%"
                                 + "\nTotal de paciente con tratamietos gratis: "
-                                + pacientesGratis, "Resumen", 1);
+                                + pacientesGratis,
+                        "Resumen", 1);
                 cont1 = 1;// Contador para que el programa salga y termine ejecucucion
             }
         } while (cont1 == 0); // Iteracion del programa y mensaje principal "Menu"

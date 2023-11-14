@@ -280,7 +280,7 @@ public class Spa {
                         if (!inputSexo.isEmpty()) {
                             sexo = Character.toUpperCase(inputSexo.charAt(0));
                         } else {
-                            JOptionPane.showMessageDialog(null, "Sexo no válido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
+                            JOptionPane.showMessageDialog(null, "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } 

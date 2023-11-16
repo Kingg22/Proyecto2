@@ -73,7 +73,7 @@ public class Spa {
 
             } else if (tipo == 1) {
                 // Registro de usuario
-                try { // Bloque de control de excepciones try
+                try { // Bloque de control de excepciones
                       // Entrada del nombre del paciente
                     do {
                         nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
@@ -353,7 +353,7 @@ public class Spa {
                     fechaFin = null;
                     fechaInicio = null;
 
-                    // catch de formateo de numero y formato de fecha
+                // captura de excepciones de formateo de numero y indice fuera de rango
                 } catch (NumberFormatException num) {
                     JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num, "Error",
                             JOptionPane.ERROR_MESSAGE);

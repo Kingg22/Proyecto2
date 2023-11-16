@@ -1,176 +1,11 @@
+package clases;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.text.DecimalFormat;
-
-class SpaClass {
-    // Atributos de la clase
-    private String nombre;
-    private int edad;
-    private char sexo, tipoT;
-    private LocalDate fechaInicio, fechaFin;
-
-    public void AsignarDatos(String name, int old, char sex, char tipo, LocalDate fecha1, LocalDate fecha2) {
-        nombre = name;
-        edad = old;
-        sexo = sex;
-        tipoT = Character.toUpperCase(tipo);
-        fechaInicio = fecha1;
-        fechaFin = fecha2;
-    }
-
-    public float calcularCostoDia() {
-        float costoDia = 0F;
-        // este metodo solo se utiliza para determinar los costos asociados al tipo de
-        // tratamiento escogido
-        if (tipoT == 'A')
-            costoDia = 280.00F;
-        else if (tipoT == 'B')
-            costoDia = 195.00F;
-        else if (tipoT == 'C')
-            costoDia = 250.00F;
-
-        return costoDia;
-    }
-
-    public long calcularDiasInternado() {
-        long dias;
-        dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
-        return dias;
-    }
-
-    public float calcularCosto() {
-        float costo;
-        // multiplica el costo por dia del tratamiento escogido por todos los dias
-        // internado
-        costo = calcularCostoDia() * calcularDiasInternado();
-        return costo;
-    }
-
-    public float calcularDescuentos() {
-        float descuento = 0.00F; // inicializar
-        // Descuento por edad
-        if (edad > 60)
-            descuento = (calcularCosto() * 0.25F);
-        else if (edad >= 45 && edad <= 50 && (sexo == 'F'))
-            descuento = (calcularCosto() * 0.15F);
-        // Descuento Especial por semana completa internado y es el tratamiento de menor
-        // costo
-        if (tipoT == 'B' && calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7) {
-            descuento = descuento + (calcularCostoDia() * 0.50F);
-
-        }
-        return descuento;
-    }
-
-    public String MostrarDescuentoEspecial() {
-        String mensajeDD = "";
-
-        if (calcularDiasInternado() >= 5 && calcularDiasInternado() <= 7) {
-            if (tipoT == 'A') {
-                mensajeDD = "Tiene derecho a tratamiento B o C (1 dia gratis!!)";
-            } else if (tipoT == 'C') {
-                mensajeDD = "Tiene derecho al tratamiento C (1 dia gratis!!)";
-            } else if (tipoT == 'B') {
-                mensajeDD = "Se le aplico un descuento de 50% en 1 dia de su tratamiento";
-
-            }
-        }
-        return mensajeDD;
-    }
-
-    public float calcularTotal() {
-        float total;
-        total = calcularCosto() - calcularDescuentos();
-        return total;
-    }
-
-    public String devolverNombre() {
-        return nombre;
-    }
-
-    public int devolverEdad() {
-        return edad;
-    }
-
-    public char devolverSexo() {
-        return sexo;
-    }
-
-    public char devolverTipoTratamiento() {
-        return tipoT;
-    }
-
-    public LocalDate devolverFecha1() {
-        return fechaInicio;
-    }
-
-    public LocalDate devolverFecha2() {
-        return fechaFin;
-    }
-
-}
-
-class Porcentaje {
-    /*
-     * Esta clase se enfoca solo en sacar los porcentajes de pacientes por tipo de
-     * tratamiento
-     * Se decidió hacer otra clase ya que esta tiene todos sus partes (asignar,
-     * calcular, devolver) y no requiere ninguna información de la otra clase.
-     * 
-     * ATRIBUTOS de la clase
-     */
-    private int tipoA, tipoB, tipoC, pacientesT;
-
-    public void asignarDatos(int tA, int tB, int tC, int totalPacientes) {
-        tipoA = tA;
-        tipoB = tB;
-        tipoC = tC;
-        pacientesT = totalPacientes;
-    }
-
-    public float calcularPorcentajeA() {
-        float porcentajeA;
-        porcentajeA = (float) tipoA / pacientesT * 100;
-        if (pacientesT == 0)
-            porcentajeA = 0.00F;
-        return porcentajeA;
-    }
-
-    public float calcularPorcentajeB() {
-        float porcentajeB;
-        porcentajeB = (float) tipoB / pacientesT * 100;
-        if (pacientesT == 0)
-            porcentajeB = 0.00F;
-        return porcentajeB;
-    }
-
-    public float calcularPorcentajeC() {
-        float porcentajeC;
-        porcentajeC = (float) tipoC / pacientesT * 100;
-        if (pacientesT == 0)
-            porcentajeC = 0.00F;
-        return porcentajeC;
-    }
-
-    public int devolverTipoA() {
-        return tipoA;
-    }
-
-    public int devolverTipoB() {
-        return tipoB;
-    }
-
-    public int devolverTipoC() {
-        return tipoC;
-    }
-
-    public int devolverTotalPacientes() {
-        return pacientesT;
-    }
-}
 
 public class Spa {
     public static void main(String[] args) {
@@ -182,11 +17,11 @@ public class Spa {
         // Variables para el control de opciones
         int servicio = 0, menu2 = 0, cont1 = 0;
         // Iconos de cada menu en el programa
-        ImageIcon iconA = new ImageIcon("tratamientoA.jpg");
-        ImageIcon iconB = new ImageIcon("tratamientoB.jpg");
-        ImageIcon iconC = new ImageIcon("tratamientoC.jpg");
-        ImageIcon iconD = new ImageIcon("Welcome.png");
-        ImageIcon iconE = new ImageIcon("Spa.png");
+        ImageIcon iconA = new ImageIcon("resources/imagenes/tratamientoA.jpg");
+        ImageIcon iconB = new ImageIcon("resources/imagenes/tratamientoB.jpg");
+        ImageIcon iconC = new ImageIcon("resources/imagenes/tratamientoC.jpg");
+        ImageIcon iconD = new ImageIcon("resources/imagenes/Welcome.png");
+        ImageIcon iconE = new ImageIcon("resources/imagenes/Spa.png");
         ImageIcon iconFinal = null;
         // Mensajes para el menu de servicios del programa
         String tratamientoA = "SERVICIO A (Hot Stones Massage):\nUn maravilloso masaje realizado con calidas piedras volcanicas,\naceite de almendras y aceites esenciales de romero y tomillo.";

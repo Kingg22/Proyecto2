@@ -21,7 +21,7 @@ public class Spa {
         ImageIcon iconB = new ImageIcon("resources/imagenes/tratamientoB.jpg");
         ImageIcon iconC = new ImageIcon("resources/imagenes/tratamientoC.jpg");
         ImageIcon iconD = new ImageIcon("resources/imagenes/Welcome.png");
-        ImageIcon iconE = new ImageIcon("resources/imagenes/fSpa.png");
+        ImageIcon iconE = new ImageIcon("resources/imagenes/Spa.png");
         ImageIcon iconFinal = null;
         // Mensajes para el menu de servicios del programa
         String tratamientoA = "SERVICIO A (Hot Stones Massage):\nUn maravilloso masaje realizado con calidas piedras volcanicas,\naceite de almendras y aceites esenciales de romero y tomillo.";

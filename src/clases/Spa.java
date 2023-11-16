@@ -21,7 +21,7 @@ public class Spa {
         ImageIcon iconB = new ImageIcon("resources/imagenes/tratamientoB.jpg");
         ImageIcon iconC = new ImageIcon("resources/imagenes/tratamientoC.jpg");
         ImageIcon iconD = new ImageIcon("resources/imagenes/Welcome.png");
-        ImageIcon iconE = new ImageIcon("resources/imagenes/Spa.png");
+        ImageIcon iconE = new ImageIcon("resources/imagenes/fSpa.png");
         ImageIcon iconFinal = null;
         // Mensajes para el menu de servicios del programa
         String tratamientoA = "SERVICIO A (Hot Stones Massage):\nUn maravilloso masaje realizado con calidas piedras volcanicas,\naceite de almendras y aceites esenciales de romero y tomillo.";
@@ -78,6 +78,7 @@ public class Spa {
                     do {
                         nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre", "SPA ARMONIA",
                                 JOptionPane.QUESTION_MESSAGE);
+
                         if (nombre == null) {
                             // El usuario presionó Cancelar
                             respuesta = JOptionPane.showConfirmDialog(null,
@@ -123,7 +124,7 @@ public class Spa {
 
                         } else if (inputEdad.isEmpty()) {
                             JOptionPane.showMessageDialog(null,
-                                    "Nombre no valido. Por favor, ingrese un nombre valido o presione Cancelar para salir.",
+                                    "Edad no valido. Por favor, ingrese una edad valido o presione Cancelar para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         } else if (!inputEdad.isEmpty()) {
                             edad = Integer.parseInt(inputEdad);
@@ -159,11 +160,14 @@ public class Spa {
                             // Verificar si la entrada no está vacía y es un carácter
                             if (!inputSexo.isEmpty()) {
                                 sexo = Character.toUpperCase(inputSexo.charAt(0));
-                            } else {
-                                JOptionPane.showMessageDialog(null,
-                                        "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
-                                        "Error", JOptionPane.ERROR_MESSAGE);
+                                if (sexo != 'M' && sexo != 'F') {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Sexo no valido. Por favor, ingrese 'M' o 'F' o cancele para salir.",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
+                                    sexo = 'l';
+                                }
                             }
+
                         }
                     }
                     // Eleccion del tratamiento por el paciente
@@ -186,6 +190,7 @@ public class Spa {
                                 case 1:
                                     fechaInicio = null;
                                     break;
+
                             }
 
                         } else {
@@ -226,18 +231,29 @@ public class Spa {
                                     break;
                             }
                         } else if (!inputFechaInicio.isEmpty()) {
-                            fechaInicio = LocalDate.parse(inputFechaInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                            try {
+                                fechaInicio = LocalDate.parse(inputFechaInicio,
+                                        DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                            } catch (DateTimeException date) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir. \n"
+                                                + date,
+                                        "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                                fechaInicio = null;
+                            }
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
-                            System.out.println(fechaInicio);
+                            fechaInicio = null;
                         }
 
                     } while (fechaInicio == null);
 
                     // Entrada de la fecha de salida
                     do {
+
                         inputFechaFin = JOptionPane.showInputDialog(null,
                                 "Introduzca la fecha de salida (dd/MM/yyyy): ",
                                 (LocalDate.now()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -259,12 +275,21 @@ public class Spa {
                             }
                         }
                         if (!inputFechaFin.isEmpty()) {
-                            fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
+                            try {
+                                fechaFin = LocalDate.parse(inputFechaFin, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                            } catch (DateTimeException date) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir. \n"
+                                                + date,
+                                        "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                                fechaFin = null;
+                            }
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Fecha no valida. Por favor, ingrese una fecha valida o cancele para salir.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
+                            fechaFin = null;
                         }
 
                     } while (fechaFin == null || ChronoUnit.DAYS.between(fechaInicio, fechaFin) <= 0);
@@ -332,9 +357,6 @@ public class Spa {
                 } catch (NumberFormatException num) {
                     JOptionPane.showMessageDialog(null, "El valor insertado no es un numero sadf" + num, "Error",
                             JOptionPane.ERROR_MESSAGE);
-                } catch (DateTimeException time) {
-                    JOptionPane.showMessageDialog(null, "La de fecha no fue insertada de forma correcta " + time,
-                            "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (StringIndexOutOfBoundsException e) {
                     JOptionPane.showMessageDialog(null, "Error: indice fuera de rango " + e, "Error",
                             JOptionPane.ERROR_MESSAGE);
